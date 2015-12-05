@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace Durnit
 {
-    public class Class1
+    class DataNode
     {
-        public static void main(string[] args)
-        {
-            Console.WriteLine("Hello World");
-        }
     }
 }
