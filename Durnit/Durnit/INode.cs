@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Durnit
 {
-    public class Class1
+    class INode
     {
-
     }
 }
