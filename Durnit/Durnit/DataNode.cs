@@ -64,11 +64,6 @@ namespace Durnit
                     GetData(context, fileName);
                 }
             }
-
-            HttpListenerResponse response = context.Response;
-            byte[] buff = { 1, 2, 3, 1, 1, 1, };
-
-            response.Close(buff, true);
         }
 
         private void ConstantHeartBeat()
