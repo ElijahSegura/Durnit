@@ -44,9 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataNode.cs" />
+    <Compile Include="DataNodeModel.cs" />
     <Compile Include="Interfaces\INode.cs" />
-    <Compile Include="NameNode\NameNode.cs" />
     <Compile Include="NameNode\DataNodeInfo.cs" />
+    <Compile Include="NameNode\NameNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
