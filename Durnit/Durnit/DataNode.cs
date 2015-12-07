@@ -95,7 +95,8 @@ namespace Durnit
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
             request.ContentLength = requestBytes.Length;
-            request.Headers.Add("X-DurnitOp=Heartbeat");
+            request.Headers.Add("X-DurnitOp");
+            request.Headers["X-DurnitOp"] = "Heartbeat"; ;
             Stream dataStream = request.GetRequestStream();
             dataStream.Write(requestBytes, 0, requestBytes.Length);
         }
@@ -109,7 +110,8 @@ namespace Durnit
                 request.Method = "POST";
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.ContentLength = requestBytes.Length;
-                request.Headers.Add("X-DurnitOp=Replication");
+                request.Headers.Add("X-DurnitOp");
+                request.Headers["X-DurnitOp"] = "Replication";
                 Stream dataStream = request.GetRequestStream();
                 dataStream.Write(requestBytes, 0, requestBytes.Length);
             }
@@ -120,7 +122,8 @@ namespace Durnit
             string URI = "http://NameNode:0000/";
             HttpWebRequest request = WebRequest.CreateHttp(URI);
             request.Method = "GET";
-            request.Headers.Add("X-DurnitOp=DeadFriends");
+            request.Headers.Add("X-DurnitOp");
+            request.Headers["X-DurnitOp"] = "RequestFriends";
             WebResponse response = request.GetResponse();
             Stream dataStream = response.GetResponseStream();
             char[] responseBytes = new char[dataStream.Length];
