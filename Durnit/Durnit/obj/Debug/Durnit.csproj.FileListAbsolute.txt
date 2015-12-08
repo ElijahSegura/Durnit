@@ -9,3 +9,9 @@ C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\c
 C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\obj\Debug\Durnit.csprojResolveAssemblyReference.cache
 C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\obj\Debug\Durnit.dll
 C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\obj\Debug\Durnit.pdb
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Durnit.dll
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Durnit.pdb
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.csprojResolveAssemblyReference.cache
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.dll
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.pdb
