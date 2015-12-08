@@ -16,6 +16,8 @@ namespace Durnit
 
         public List<string> DataStored = new List<string>();
 
+        public readonly int HEART_BEAT_TIMER = 5000;
+
         public DataNode()
         {
             new Thread(beginOperation).Start();
@@ -70,7 +72,7 @@ namespace Durnit
         {
             while (true)
             {
-                System.Threading.Thread.Sleep(5000);
+                System.Threading.Thread.Sleep(HEART_BEAT_TIMER);
                 HeartBeat();
             }
         }
@@ -80,7 +82,7 @@ namespace Durnit
             string requestData = "";
             foreach (string datum in DataStored)
             {
-                requestData += datum + "-";
+                requestData += datum + ";";
             }
             byte[] requestBytes = new byte[requestData.Length];
             char[] data = requestData.ToCharArray();
@@ -91,10 +93,9 @@ namespace Durnit
             string URI = "http://NameNode:0000/";
             HttpWebRequest request = WebRequest.CreateHttp(URI);
             request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentType = "application/octet-stream";
             request.ContentLength = requestBytes.Length;
-            request.Headers.Add("X-DurnitOp");
-            request.Headers["X-DurnitOp"] = "Heartbeat"; ;
+            request.Headers.Add("X-DurnitOp", "Heartbeat");
             Stream dataStream = request.GetRequestStream();
             dataStream.Write(requestBytes, 0, requestBytes.Length);
         }
@@ -106,10 +107,9 @@ namespace Durnit
                 string URI = DNM.URI;
                 HttpWebRequest request = WebRequest.CreateHttp(URI);
                 request.Method = "POST";
-                request.ContentType = "application/x-www-form-urlencoded";
+                request.ContentType = "application/octet-stream";
                 request.ContentLength = requestBytes.Length;
-                request.Headers.Add("X-DurnitOp");
-                request.Headers["X-DurnitOp"] = "Replication";
+                request.Headers.Add("X-DurnitOp", "Replication");
                 Stream dataStream = request.GetRequestStream();
                 dataStream.Write(requestBytes, 0, requestBytes.Length);
             }
@@ -120,8 +120,7 @@ namespace Durnit
             string URI = "http://NameNode:0000/";
             HttpWebRequest request = WebRequest.CreateHttp(URI);
             request.Method = "GET";
-            request.Headers.Add("X-DurnitOp");
-            request.Headers["X-DurnitOp"] = "RequestFriends";
+            request.Headers.Add("X-DurnitOp", "NewFriends");
             WebResponse response = request.GetResponse();
             Stream dataStream = response.GetResponseStream();
             char[] responseBytes = new char[dataStream.Length];
