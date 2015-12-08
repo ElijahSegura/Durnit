@@ -1,6 +1,11 @@
-C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Client\bin\Debug\Client.exe.config
-C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Client\bin\Debug\Client.exe
-C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Client\bin\Debug\Client.pdb
-C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Client\obj\Debug\Client.exe
-C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Client\obj\Debug\Client.pdb
-C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Client\bin\Debug\Client.exe.config
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Client\bin\Debug\Client.exe
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Client\bin\Debug\Client.pdb
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Client\bin\Debug\mscorlib.dll
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Client\bin\Debug\normidna.nlp
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Client\bin\Debug\normnfc.nlp
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Client\bin\Debug\normnfd.nlp
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Client\bin\Debug\normnfkc.nlp
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Client\bin\Debug\normnfkd.nlp
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Client\obj\Debug\Client.exe
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Client\obj\Debug\Client.pdb
