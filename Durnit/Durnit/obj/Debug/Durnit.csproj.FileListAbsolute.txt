@@ -1,0 +1,5 @@
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.csprojResolveAssemblyReference.cache
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Durnit.pdb
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.pdb
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Durnit.dll
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.dll
