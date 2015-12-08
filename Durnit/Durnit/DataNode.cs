@@ -12,6 +12,8 @@ namespace Durnit
 {
     public class DataNode
     {
+        private const int HEARTBEAT_RATE = 5000;
+
         public List<DataNodeModel> replication = new List<DataNodeModel>();
 
         public List<string> DataStored = new List<string>();
@@ -72,7 +74,7 @@ namespace Durnit
         {
             while (true)
             {
-                System.Threading.Thread.Sleep(HEART_BEAT_TIMER);
+                System.Threading.Thread.Sleep(HEARTBEAT_RATE);
                 HeartBeat();
             }
         }
