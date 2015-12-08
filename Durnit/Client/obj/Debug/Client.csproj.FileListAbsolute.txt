@@ -1,0 +1,6 @@
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Client\bin\Debug\Client.exe.config
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Client\bin\Debug\Client.exe
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Client\bin\Debug\Client.pdb
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Client\obj\Debug\Client.exe
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Client\obj\Debug\Client.pdb
