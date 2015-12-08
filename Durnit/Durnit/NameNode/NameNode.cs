@@ -27,14 +27,26 @@ namespace Durnit
             listener.BeginGetContext(new AsyncCallback(handleRequest), listener);
 
             HttpListenerContext context = listener.EndGetContext(ar);
+            HttpListenerRequest request = context.Request;
             NameValueCollection requestHeaders = context.Request.Headers;
             HttpListenerResponse response = context.Response;
-            for (int i = 0; i < requestHeaders.Count; i++)
+            
+            string durnitOp = requestHeaders.Get("X-DurnitOp");
+            switch(durnitOp)
             {
-                Console.WriteLine(requestHeaders.Get(i));
-            }
+                case "GetDatanodes":
 
-            response.AddHeader("X-Durnit", "woah");
+                    response.StatusCode = 200;
+                    break;
+                case "Heartbeat":
+                    //List<string> data = (List<string>)request.InputStream;
+                    response.StatusCode = 200;
+                    break;
+                default:
+                    response.StatusCode = 404;
+                    break;
+            }
+            //response.AddHeader("X-DurnitOp", "woah");
 
             response.Close();
 
