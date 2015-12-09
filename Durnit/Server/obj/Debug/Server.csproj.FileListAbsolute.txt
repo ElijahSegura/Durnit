@@ -10,3 +10,9 @@ C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Server\bin\Debug\Server.pd
 C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
 C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Server\obj\Debug\Server.exe
 C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Server\obj\Debug\Server.pdb
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Server\bin\Debug\Server.exe.config
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Server\bin\Debug\Server.exe
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Server\bin\Debug\Server.pdb
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Server\obj\Debug\Server.exe
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Server\obj\Debug\Server.pdb

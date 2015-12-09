@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Threading;
 using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 
 namespace Durnit
@@ -14,7 +16,7 @@ namespace Durnit
     {
         private const int HEARTBEAT_RATE = 5000;
 
-        public List<DataNodeModel> replication = new List<DataNodeModel>();
+        private List<DataNodeInfo> replication = new List<DataNodeInfo>();
 
         public List<string> DataStored = new List<string>();
 
@@ -79,7 +81,7 @@ namespace Durnit
             }
         }
 
-        private void HeartBeat()
+        private void HeartBeat()//<--- JSON DataNode Info
         {
             string requestData = "";
             foreach (string datum in DataStored)
@@ -99,14 +101,22 @@ namespace Durnit
             request.ContentLength = requestBytes.Length;
             request.Headers.Add("X-DurnitOp", "Heartbeat");
             Stream dataStream = request.GetRequestStream();
-            dataStream.Write(requestBytes, 0, requestBytes.Length);
+            StreamWriter sw = new StreamWriter(dataStream);
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.Converters.Add(new JavaScriptDateTimeConverter());
+            serializer.NullValueHandling = NullValueHandling.Ignore;
+            JsonWriter JW = new JsonTextWriter(sw);
+            foreach (DataNodeInfo info in replication)
+            {
+                serializer.Serialize(JW, info.URIAdress);
+            }
         }
 
         private void RequestReplication(string file)
         {
             byte[] requestBytes = File.ReadAllBytes(file);
-            foreach(DataNodeModel DNM in replication ){
-                string URI = DNM.URI;
+            foreach(DataNodeInfo DNM in replication ){
+                string URI = DNM.URIAdress;
                 HttpWebRequest request = WebRequest.CreateHttp(URI);
                 request.Method = "POST";
                 request.ContentType = "application/octet-stream";
@@ -144,10 +154,10 @@ namespace Durnit
                     word = "";
                 }
             }
-            replication = new List<DataNodeModel>();
+            replication = new List<DataNodeInfo>();
             foreach (string s in newFriends)
             {
-                replication.Add(new DataNodeModel(s));
+                replication.Add(new DataNodeInfo());
             }
         }
 
@@ -177,7 +187,7 @@ namespace Durnit
                 }
                 else
                 {
-                    replication.Add(new DataNodeModel(word));
+                    replication.Add(new DataNodeInfo());
                     word = "";
                 }
             }
