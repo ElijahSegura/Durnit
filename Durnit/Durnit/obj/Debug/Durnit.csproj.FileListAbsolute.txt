@@ -21,3 +21,5 @@ C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Newtonso
 C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.csprojResolveAssemblyReference.cache
 C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.dll
 C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.pdb
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\bin\Debug\Newtonsoft.Json.xml
