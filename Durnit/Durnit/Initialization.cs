@@ -41,16 +41,11 @@ namespace Durnit
             switch (init.Instruction)
             {
                 case InitInstructions.DATANODE:
-                    var dn = new DataNode(
-                        new NameNodeInfo()
-                        {
-                            Address = init.NameNodeAddress,
-                            Port = init.NameNodePort
-                        });
+                    var dn = new DataNode(init);
                     //TODO: Start dataNode
                     break;
                 case InitInstructions.NAMENODE:
-                    var nn = new NameNode();
+                    var nn = new NameNode(init.Address, init.Port);
                     //TODO: Start nameNode
                     break;
                 default:

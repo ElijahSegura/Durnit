@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace Durnit
 {
-    class NameNode
+    public class NameNode
     {
         private List<DataNodeInfo> log;
         private string URI = "http://localhost:8080/";
-        public NameNode(string URI)
+        public NameNode(string Address, string Port)
         {
-            this.URI = URI;
+            URI = "http://" + Address + ":" + Port + "/";
             log = new List<DataNodeInfo>();
             HttpListener listener = new HttpListener();
             listener.Prefixes.Add(URI);

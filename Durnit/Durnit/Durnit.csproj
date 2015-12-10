@@ -51,7 +51,7 @@
     <Compile Include="Interfaces\INode.cs" />
     <Compile Include="Models\InitInstructionModel.cs" />
     <Compile Include="Models\NameNodeInfo.cs" />
-    <Compile Include="NameNode\DataNodeInfo.cs" />
+    <Compile Include="Models\DataNodeInfo.cs" />
     <Compile Include="NameNode\NameNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
