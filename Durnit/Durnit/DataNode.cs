@@ -6,20 +6,23 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Threading;
 using System.IO;
+using Durnit.Models;
 
 
 namespace Durnit
 {
     public class DataNode
     {
+        private NameNodeInfo nni;
         private const int HEARTBEAT_RATE = 5000;
 
         public List<DataNodeModel> replication = new List<DataNodeModel>();
 
         public List<string> DataStored = new List<string>();
 
-        public DataNode()
+        public DataNode(NameNodeInfo nni)
         {
+            this.nni = nni;
             new Thread(beginOperation).Start();
             new Thread(ConstantHeartBeat).Start();
         }
