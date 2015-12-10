@@ -7,14 +7,7 @@ namespace Durnit
 {
     public class DataNodeModel
     {
-        public int address;
-
-
-        public string URI { get; set; }
-
-        public DataNodeModel(string s)
-        {
-            URI = s;
-        }
+        public string Address { get; set; }
+        public string Port { get; set; }
     }
 }

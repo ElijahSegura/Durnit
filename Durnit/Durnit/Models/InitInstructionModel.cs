@@ -13,5 +13,7 @@ namespace Durnit.Models
         public InitInstructions Instruction { get; set; }
         public string NameNodeAddress { get; set; }
         public string NameNodePort { get; set; }
+
+        public List<DataNodeModel> dataNodes { get; set; }
     }
 }

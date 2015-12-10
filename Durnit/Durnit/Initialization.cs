@@ -1,9 +1,12 @@
 ﻿using Durnit.Exceptions;
 using Durnit.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -159,6 +162,7 @@ namespace Durnit
             }
 
             InitializeSelf(myInstruction);
+            SendInstructions();
 
             return nni;
 
@@ -170,14 +174,38 @@ namespace Durnit
             //}
         }
 
+        //TODO:
         public void SendInstructions()
         {
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.Converters.Add(new JavaScriptDateTimeConverter());
+            serializer.NullValueHandling = NullValueHandling.Ignore;
 
-        }
+            foreach (var iim in instructions)
+            {
+                WebRequest request = WebRequest.Create("http://" + iim.Address + ":" + iim.Port);
+                request.Method = "POST";
+                request.ContentType = "application/json";
 
-        public bool SendInstruction(InitInstructions instrcution, string address, string port)
-        {
-            return false;
+
+                using (StreamWriter sw = new StreamWriter(request.GetRequestStream()))
+                using (JsonWriter writer = new JsonTextWriter(sw))
+                {
+                    serializer.Serialize(writer, iim);
+
+                    if (iim.Instruction == InitInstructions.NAMENODE)
+                    {
+                        foreach (var iim2 in instructions)
+                        {
+                            if (iim2.Instruction == InitInstructions.DATANODE)
+                                serializer.Serialize(writer, iim2);
+                        }
+                    }
+
+                    // {"ExpiryDate":new Date(1230375600000),"Price":0}
+                }
+                request.GetResponse();
+            }
         }
     }
 
