@@ -16,3 +16,9 @@ C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Server\bin\Debug\Server.p
 C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
 C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Server\obj\Debug\Server.exe
 C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Server\obj\Debug\Server.pdb
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\bin\Debug\Server.exe.config
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\bin\Debug\Server.exe
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\bin\Debug\Server.pdb
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\obj\Debug\Server.exe
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\obj\Debug\Server.pdb

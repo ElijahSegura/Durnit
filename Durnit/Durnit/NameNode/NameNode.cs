@@ -11,12 +11,13 @@ using System.Threading.Tasks;
 
 namespace Durnit
 {
-    class NameNode
+    public class NameNode
     {
         private List<DataNodeInfo> log;
-        static string URI = "http://localhost:8080/";
-        public NameNode()
+        private string URI = "http://localhost:8080/";
+        public NameNode(string Address, string Port)
         {
+            URI = "http://" + Address + ":" + Port + "/";
             log = new List<DataNodeInfo>();
             HttpListener listener = new HttpListener();
             listener.Prefixes.Add(URI);
@@ -41,49 +42,77 @@ namespace Durnit
             switch(durnitOp)
             {
                 case "GetDatanodes":
-                    serializer.Converters.Add(new JavaScriptDateTimeConverter());
-                    serializer.NullValueHandling = NullValueHandling.Ignore;
-
-                    DataNodeInfo[] nodesToSend = GetDataNodes();
-
-                    using (StreamWriter sw = new StreamWriter(response.OutputStream))
-                    using (JsonWriter writer = new JsonTextWriter(sw))
-                    {
-                        foreach (DataNodeInfo info in nodesToSend)
-                        {
-                            serializer.Serialize(writer, info.URIAdress);
-                        }
-                        // {"ExpiryDate":new Date(1230375600000),"Price":0}
-                    }
-                    response.StatusCode = 200;
+                    handleGetDataNodes(response);
                     break;
                 case "Heartbeat":
-                    DataNodeInfo sentInfo;
-                    using (StreamReader reader = new StreamReader(request.InputStream))
-                    using (JsonReader JsonRead = new JsonTextReader(reader))
-                    {
-                        sentInfo = (DataNodeInfo)serializer.Deserialize(JsonRead, typeof(DataNodeInfo));
-                    }
-
-                    DataNodeInfo correspondingInfo = log.FirstOrDefault(x => x.ID == sentInfo.ID);
-                    correspondingInfo.Files = sentInfo.Files;
-
-                    response.StatusCode = 200;
+                    handleHeartBeat(request, response);
                     break;
                 default:
                     response.StatusCode = 404;
                     break;
             }
-            //response.AddHeader("X-DurnitOp", "woah");
-
-            response.Close();
-
-            //Console.WriteLine("got it!");
+            response.Close(); 
         }
 
-        private DataNodeInfo[] GetDataNodes()
+        private void handleHeartBeat(HttpListenerRequest request, HttpListenerResponse response)
         {
-            throw new NotImplementedException();
+            JsonSerializer serializer = new JsonSerializer();
+            DataNodeInfo sentInfo;
+            using (StreamReader reader = new StreamReader(request.InputStream))
+            using (JsonReader JsonRead = new JsonTextReader(reader))
+            {
+                sentInfo = (DataNodeInfo)serializer.Deserialize(JsonRead, typeof(DataNodeInfo));
+            }
+
+            DataNodeInfo correspondingInfo = log.FirstOrDefault(x => x.ID == sentInfo.ID);
+            if (correspondingInfo != null)
+            {
+                correspondingInfo.Files = sentInfo.Files;
+            }
+            else
+            {
+                log.Add(sentInfo);
+            }
+
+            response.StatusCode = 200;
+        }
+
+        private void handleGetDataNodes(HttpListenerResponse response)
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.Converters.Add(new JavaScriptDateTimeConverter());
+            serializer.NullValueHandling = NullValueHandling.Ignore;
+
+            //TODO: CHANGE THIS
+            DataNodeInfo[] nodesToSend = getDataNodesFromCount(4);
+
+            using (StreamWriter sw = new StreamWriter(response.OutputStream))
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                foreach (DataNodeInfo info in nodesToSend)
+                {
+                    serializer.Serialize(writer, info.URIAdress);
+                }
+                // {"ExpiryDate":new Date(1230375600000),"Price":0}
+            }
+            response.StatusCode = 200;
+        }
+
+        private DataNodeInfo[] getDataNodesFromCount(int howManyToReturn)
+        {
+            HashSet<int> indecies = new HashSet<int>();
+            Random generator = new Random();
+            while(indecies.Count != howManyToReturn)
+            {
+                indecies.Add(generator.Next(log.Count));
+            }
+            List<DataNodeInfo> returningList = new List<DataNodeInfo>();
+            foreach (int index in indecies)
+            {
+                returningList.Add(log[index]);
+            }
+            return returningList.ToArray();
+            //throw new NotImplementedException();
         }
     }
 }

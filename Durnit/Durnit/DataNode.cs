@@ -8,35 +8,34 @@ using System.Threading;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Durnit.Models;
 
 
 namespace Durnit
 {
     public class DataNode
     {
-
-        /// <summary>
-        /// Time in miliseconds between heartbeats
-        /// </summary>
-        private const int HEARTBEAT_RATE = 5000;
+        private const int HEARTBEAT_RATE = 1000;
 
         /// <summary>
         /// A list of DataNodeInfo objects
         /// </summary>
         private List<DataNodeInfo> replication = new List<DataNodeInfo>();
 
-        private DataNodeInfo selfInfo;
-
-
         public List<string> DataStored = new List<string>();
 
-        public DataNode()
+
+        public DataNode(InitInstructionModel info)
         {
-            selfInfo = new DataNodeInfo();
+            Console.WriteLine("data node initialized");
+            myURI = "http://" + info.Address + ":" + info.Port + "/";
+            nameNodeURI = "http://" + info.NameNodeAddress + ":" + info.NameNodePort + "/";
             new Thread(beginOperation).Start();
             new Thread(ConstantHeartBeat).Start();
         }
 
+        private string myURI { get; set; }
+        private string nameNodeURI { get; set; }
 
         static string URI = "http://localhost:8080/";
 
@@ -46,7 +45,7 @@ namespace Durnit
         private void beginOperation()
         {
             HttpListener listener = new HttpListener();
-            listener.Prefixes.Add(URI);
+            listener.Prefixes.Add(myURI);
             listener.Start();
             IAsyncResult context = listener.BeginGetContext(new AsyncCallback(handleRequest), listener);
         }
@@ -96,6 +95,7 @@ namespace Durnit
         {
             while (true)
             {
+                Console.WriteLine(myURI + "queued up heartbeat");
                 System.Threading.Thread.Sleep(HEARTBEAT_RATE);
                 HeartBeat();
             }
@@ -107,6 +107,7 @@ namespace Durnit
         /// </summary>
         private void HeartBeat()
         {
+            Console.WriteLine(myURI + "heartbeat");
             string requestData = "";
             foreach (string datum in DataStored)
             {
@@ -118,8 +119,7 @@ namespace Durnit
             {
                 requestBytes[i] = (byte)data[i];
             }
-            string URI = "http://NameNode:0000/";
-            HttpWebRequest request = WebRequest.CreateHttp(URI);
+            HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
             request.Method = "POST";
             request.ContentType = "application/octet-stream";
             request.ContentLength = requestBytes.Length;
@@ -157,8 +157,7 @@ namespace Durnit
         /// </summary>
         private void getFriends()
         {
-            string URI = "http://NameNode:0000/";
-            HttpWebRequest request = WebRequest.CreateHttp(URI);
+            HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
             request.Method = "GET";
             request.Headers.Add("X-DurnitOp", "NewFriends");
             WebResponse response = request.GetResponse();
