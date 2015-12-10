@@ -128,16 +128,16 @@ namespace Durnit
             request.ContentLength = requestBytes.Length;
             request.Headers.Add("X-DurnitOp", "Heartbeat");
 
-            using(Stream dataStream = request.GetRequestStream())
-            using(StreamWriter sw = new StreamWriter(dataStream))
+            using (Stream dataStream = request.GetRequestStream())
+            using (StreamWriter sw = new StreamWriter(dataStream))
             {
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.Converters.Add(new JavaScriptDateTimeConverter());
-            serializer.NullValueHandling = NullValueHandling.Ignore;
-            JsonWriter JW = new JsonTextWriter(sw);
-            serializer.Serialize(JW, selfInfo.URIAdress);
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Converters.Add(new JavaScriptDateTimeConverter());
+                serializer.NullValueHandling = NullValueHandling.Ignore;
+                JsonWriter JW = new JsonTextWriter(sw);
+                serializer.Serialize(JW, selfInfo.URIAdress);
             }
-            }
+
             request.GetResponse();
         }
 

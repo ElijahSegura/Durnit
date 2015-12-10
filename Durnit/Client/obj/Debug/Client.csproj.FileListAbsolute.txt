@@ -27,3 +27,11 @@ C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Client\obj\Debug\Client.csprojReso
 C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Client\obj\Debug\Client.exe
 C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Client\obj\Debug\Client.pdb
 >>>>>>> 9971bce5eaaeebfb458e86fc9752d11ba4ef87c7
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Client\bin\Debug\Client.exe.config
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Client\bin\Debug\Client.exe
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Client\bin\Debug\Client.pdb
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Client\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Client\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Client\obj\Debug\Client.exe
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Client\obj\Debug\Client.pdb

@@ -27,3 +27,5 @@ C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\obj\Debug\Server.csprojReso
 C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\obj\Debug\Server.exe
 C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\obj\Debug\Server.pdb
 >>>>>>> 9971bce5eaaeebfb458e86fc9752d11ba4ef87c7
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Server\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Server\bin\Debug\Newtonsoft.Json.xml
