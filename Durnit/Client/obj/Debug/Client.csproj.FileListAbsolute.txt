@@ -15,3 +15,9 @@ C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Client\bin\Debug\Client.p
 C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
 C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Client\obj\Debug\Client.exe
 C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Client\obj\Debug\Client.pdb
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Client\bin\Debug\Client.exe.config
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Client\bin\Debug\Client.exe
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Client\bin\Debug\Client.pdb
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Client\obj\Debug\Client.exe
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Client\obj\Debug\Client.pdb
