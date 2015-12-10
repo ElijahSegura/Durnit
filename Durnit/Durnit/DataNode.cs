@@ -131,7 +131,7 @@ namespace Durnit
                 serializer.Converters.Add(new JavaScriptDateTimeConverter());
                 serializer.NullValueHandling = NullValueHandling.Ignore;
                 JsonWriter JW = new JsonTextWriter(sw);
-                serializer.Serialize(JW, selfInfo.URIAdress);
+                serializer.Serialize(JW, selfInfo);
             }
 
             request.GetResponse();
