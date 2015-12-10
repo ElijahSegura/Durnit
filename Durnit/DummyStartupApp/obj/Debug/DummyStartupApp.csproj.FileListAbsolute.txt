@@ -1,0 +1,8 @@
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\DummyStartupApp\obj\Debug\DummyStartupApp.csprojResolveAssemblyReference.cache
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\DummyStartupApp\bin\Debug\DummyStartupApp.exe.config
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\DummyStartupApp\bin\Debug\DummyStartupApp.exe
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\DummyStartupApp\bin\Debug\DummyStartupApp.pdb
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\DummyStartupApp\bin\Debug\Durnit.dll
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\DummyStartupApp\bin\Debug\Durnit.pdb
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\DummyStartupApp\obj\Debug\DummyStartupApp.exe
+C:\Users\Zachary Bunyard\Source\Durnit\Durnit\DummyStartupApp\obj\Debug\DummyStartupApp.pdb
