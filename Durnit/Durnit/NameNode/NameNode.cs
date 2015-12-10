@@ -66,7 +66,8 @@ namespace Durnit
             {
                 sentInfo = (DataNodeInfo)serializer.Deserialize(JsonRead, typeof(DataNodeInfo));
             }
-            DataNodeInfo correspondingInfo = log.FirstOrDefault(x => x.ID == sentInfo.ID);
+
+            DataNodeInfo correspondingInfo = log.FirstOrDefault(x => x.URIAdress == sentInfo.URIAdress);
             if (correspondingInfo != null)
             {
                 correspondingInfo.Files = sentInfo.Files;
@@ -77,6 +78,7 @@ namespace Durnit
             }
 
             response.StatusCode = 200;
+            response.Close();
         }
 
         //expecting GetDatanodes:(number)
