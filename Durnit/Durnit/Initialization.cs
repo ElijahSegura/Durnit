@@ -39,21 +39,23 @@ namespace Durnit
         }
 
         //TODO:
-        public void InitializeSelf(InitInstructionModel init)
+        public INode InitializeSelf(InitInstructionModel init)
         {
+            INode returningNode = null;
             switch (init.Instruction)
             {
                 case InitInstructions.DATANODE:
-                    var dn = new DataNode(init);
+                    returningNode = new DataNode(init);
                     //TODO: Start dataNode
                     break;
                 case InitInstructions.NAMENODE:
-                    var nn = new NameNode(init.Address, init.Port);
+                    returningNode = new NameNode(init.Address, init.Port);
                     //TODO: Start nameNode
                     break;
                 default:
                     break;
             }
+            return returningNode;
         }
 
 
