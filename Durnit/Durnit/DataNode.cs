@@ -22,11 +22,14 @@ namespace Durnit
         /// </summary>
         private List<DataNodeInfo> replication = new List<DataNodeInfo>();
 
+        private DataNodeInfo selfInfo;
+
         public List<string> DataStored = new List<string>();
 
 
         public DataNode(InitInstructionModel info)
         {
+            selfInfo = new DataNodeInfo();
             Console.WriteLine("data node initialized");
             myURI = "http://" + info.Address + ":" + info.Port + "/";
             nameNodeURI = "http://" + info.NameNodeAddress + ":" + info.NameNodePort + "/";
@@ -140,7 +143,8 @@ namespace Durnit
         private void RequestReplication(string file)
         {
             byte[] requestBytes = File.ReadAllBytes(file);
-            foreach(DataNodeInfo DNM in replication ){
+            foreach (DataNodeInfo DNM in replication)
+            {
                 string URI = DNM.URIAdress;
                 HttpWebRequest request = WebRequest.CreateHttp(URI);
                 request.Method = "POST";
@@ -168,7 +172,7 @@ namespace Durnit
                 responseBytes[i] = (char)dataStream.ReadByte();
             }
             List<string> newFriends = new List<string>();
-            string word ="";
+            string word = "";
             for (int j = 0; j < responseBytes.Length; j++)
             {
                 if (responseBytes[j] != ';')
