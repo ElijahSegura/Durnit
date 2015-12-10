@@ -11,8 +11,9 @@ using System.Threading.Tasks;
 
 namespace Durnit
 {
-    public class NameNode
+    public class NameNode : INode
     {
+        private string ourDurnitOp = "X-DurnitOp";
         private List<DataNodeInfo> log;
         private string URI = "http://localhost:8080/";
         public NameNode(string Address, string Port)
@@ -27,6 +28,7 @@ namespace Durnit
 
         private void handleRequest(IAsyncResult ar)
         {
+            Console.WriteLine("NameNode : handling request");
             HttpListener listener = (HttpListener)ar.AsyncState;
             listener.BeginGetContext(new AsyncCallback(handleRequest), listener);
 
@@ -36,22 +38,23 @@ namespace Durnit
             HttpListenerResponse response = context.Response;
 
 
-            string durnitOp = requestHeaders.Get("X-DurnitOp");
+            string durnitOp = requestHeaders.Get(ourDurnitOp).ToLower().Split(':')[0];
             JsonSerializer serializer = new JsonSerializer();
 
-            switch(durnitOp)
+
+            switch (durnitOp)
             {
-                case "GetDatanodes":
-                    handleGetDataNodes(response);
+                case "getdatanodes":
+                    handleGetDataNodes(request, response);
                     break;
-                case "Heartbeat":
+                case "heartbeat":
                     handleHeartBeat(request, response);
                     break;
                 default:
                     response.StatusCode = 404;
                     break;
             }
-            response.Close(); 
+            response.Close();
         }
 
         private void handleHeartBeat(HttpListenerRequest request, HttpListenerResponse response)
@@ -63,7 +66,6 @@ namespace Durnit
             {
                 sentInfo = (DataNodeInfo)serializer.Deserialize(JsonRead, typeof(DataNodeInfo));
             }
-
             DataNodeInfo correspondingInfo = log.FirstOrDefault(x => x.ID == sentInfo.ID);
             if (correspondingInfo != null)
             {
@@ -77,14 +79,16 @@ namespace Durnit
             response.StatusCode = 200;
         }
 
-        private void handleGetDataNodes(HttpListenerResponse response)
+        //expecting GetDatanodes:(number)
+        private void handleGetDataNodes(HttpListenerRequest request, HttpListenerResponse response)
         {
+            int howMany = int.Parse(request.Headers.Get(ourDurnitOp).Split(':')[1]);
+
             JsonSerializer serializer = new JsonSerializer();
             serializer.Converters.Add(new JavaScriptDateTimeConverter());
             serializer.NullValueHandling = NullValueHandling.Ignore;
 
-            //TODO: CHANGE THIS
-            DataNodeInfo[] nodesToSend = getDataNodesFromCount(4);
+            DataNodeInfo[] nodesToSend = getDataNodesFromCount(howMany);
 
             using (StreamWriter sw = new StreamWriter(response.OutputStream))
             using (JsonWriter writer = new JsonTextWriter(sw))
@@ -102,7 +106,7 @@ namespace Durnit
         {
             HashSet<int> indecies = new HashSet<int>();
             Random generator = new Random();
-            while(indecies.Count != howManyToReturn)
+            while (indecies.Count != howManyToReturn)
             {
                 indecies.Add(generator.Next(log.Count));
             }

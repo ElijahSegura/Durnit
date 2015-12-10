@@ -13,7 +13,7 @@ using Durnit.Models;
 
 namespace Durnit
 {
-    public class DataNode
+    public class DataNode : INode
     {
         private const int HEARTBEAT_RATE = 1000;
 
@@ -123,13 +123,18 @@ namespace Durnit
             request.ContentType = "application/octet-stream";
             request.ContentLength = requestBytes.Length;
             request.Headers.Add("X-DurnitOp", "Heartbeat");
-            Stream dataStream = request.GetRequestStream();
-            StreamWriter sw = new StreamWriter(dataStream);
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.Converters.Add(new JavaScriptDateTimeConverter());
-            serializer.NullValueHandling = NullValueHandling.Ignore;
-            JsonWriter JW = new JsonTextWriter(sw);
-            serializer.Serialize(JW, selfInfo.URIAdress);
+
+            using (Stream dataStream = request.GetRequestStream())
+            using (StreamWriter sw = new StreamWriter(dataStream))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Converters.Add(new JavaScriptDateTimeConverter());
+                serializer.NullValueHandling = NullValueHandling.Ignore;
+                JsonWriter JW = new JsonTextWriter(sw);
+                serializer.Serialize(JW, selfInfo.URIAdress);
+            }
+
+            request.GetResponse();
         }
 
         /// <summary>
