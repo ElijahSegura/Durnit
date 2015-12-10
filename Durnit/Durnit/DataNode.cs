@@ -20,7 +20,6 @@ namespace Durnit
         /// <summary>
         /// A list of DataNodeInfo objects
         /// </summary>
-        private List<DataNodeInfo> replication = new List<DataNodeInfo>();
 
         private DataNodeInfo selfInfo;
 
@@ -31,16 +30,13 @@ namespace Durnit
         {
             selfInfo = new DataNodeInfo();
             Console.WriteLine("data node initialized");
-            myURI = "http://" + info.Address + ":" + info.Port + "/";
+            selfInfo.URIAdress = "http://" + info.Address + ":" + info.Port + "/";
             nameNodeURI = "http://" + info.NameNodeAddress + ":" + info.NameNodePort + "/";
             new Thread(beginOperation).Start();
             new Thread(ConstantHeartBeat).Start();
         }
 
-        private string myURI { get; set; }
         private string nameNodeURI { get; set; }
-
-        static string URI = "http://localhost:8080/";
 
         /// <summary>
         /// Begins the Data Node's operation
@@ -48,7 +44,7 @@ namespace Durnit
         private void beginOperation()
         {
             HttpListener listener = new HttpListener();
-            listener.Prefixes.Add(myURI);
+            listener.Prefixes.Add(selfInfo.URIAdress);
             listener.Start();
             IAsyncResult context = listener.BeginGetContext(new AsyncCallback(handleRequest), listener);
         }
@@ -98,7 +94,7 @@ namespace Durnit
         {
             while (true)
             {
-                Console.WriteLine(myURI + "queued up heartbeat");
+                Console.WriteLine(selfInfo.URIAdress + "queued up heartbeat");
                 System.Threading.Thread.Sleep(HEARTBEAT_RATE);
                 HeartBeat();
             }
@@ -110,7 +106,7 @@ namespace Durnit
         /// </summary>
         private void HeartBeat()
         {
-            Console.WriteLine(myURI + "heartbeat");
+            Console.WriteLine(selfInfo.URIAdress + "heartbeat");
             string requestData = "";
             foreach (string datum in DataStored)
             {
@@ -143,9 +139,8 @@ namespace Durnit
         private void RequestReplication(string file)
         {
             byte[] requestBytes = File.ReadAllBytes(file);
-            foreach (DataNodeInfo DNM in replication)
+            foreach (string URI in selfInfo.connections)
             {
-                string URI = DNM.URIAdress;
                 HttpWebRequest request = WebRequest.CreateHttp(URI);
                 request.Method = "POST";
                 request.ContentType = "application/octet-stream";
@@ -156,41 +151,41 @@ namespace Durnit
             }
         }
 
-        /// <summary>
-        /// Requests the name node to provide new nodes to be in contact with.
-        /// </summary>
-        private void getFriends()
-        {
-            HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
-            request.Method = "GET";
-            request.Headers.Add("X-DurnitOp", "NewFriends");
-            WebResponse response = request.GetResponse();
-            Stream dataStream = response.GetResponseStream();
-            char[] responseBytes = new char[dataStream.Length];
-            for (int i = 0; i < responseBytes.Length; i++)
-            {
-                responseBytes[i] = (char)dataStream.ReadByte();
-            }
-            List<string> newFriends = new List<string>();
-            string word = "";
-            for (int j = 0; j < responseBytes.Length; j++)
-            {
-                if (responseBytes[j] != ';')
-                {
-                    word += responseBytes[j];
-                }
-                else
-                {
-                    newFriends.Add(word);
-                    word = "";
-                }
-            }
-            replication = new List<DataNodeInfo>();
-            foreach (string s in newFriends)
-            {
-                replication.Add(new DataNodeInfo());
-            }
-        }
+        ///// <summary>
+        ///// Requests the name node to provide new nodes to be in contact with.
+        ///// </summary>
+        //private void getFriends()
+        //{
+        //    HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
+        //    request.Method = "GET";
+        //    request.Headers.Add("X-DurnitOp", "NewFriends");
+        //    WebResponse response = request.GetResponse();
+        //    Stream dataStream = response.GetResponseStream();
+        //    char[] responseBytes = new char[dataStream.Length];
+        //    for (int i = 0; i < responseBytes.Length; i++)
+        //    {
+        //        responseBytes[i] = (char)dataStream.ReadByte();
+        //    }
+        //    List<string> newFriends = new List<string>();
+        //    string word = "";
+        //    for (int j = 0; j < responseBytes.Length; j++)
+        //    {
+        //        if (responseBytes[j] != ';')
+        //        {
+        //            word += responseBytes[j];
+        //        }
+        //        else
+        //        {
+        //            newFriends.Add(word);
+        //            word = "";
+        //        }
+        //    }
+        //    selfInfo.connections = new List<string>();
+        //    foreach (string s in newFriends)
+        //    {
+        //        selfInfo.connections.Add(s);
+        //    }
+        //}
 
         /// <summary>
         /// Creates data on the node, requests the nodes that this node is in contact with replicate the same data
@@ -233,7 +228,7 @@ namespace Durnit
                 }
                 else
                 {
-                    replication.Add(new DataNodeInfo());
+                    selfInfo.connections.Add(word);
                     word = "";
                 }
             }
