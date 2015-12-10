@@ -6,23 +6,24 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Threading;
 using System.IO;
-using Durnit.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 
 namespace Durnit
 {
     public class DataNode
     {
-        private NameNodeInfo nni;
         private const int HEARTBEAT_RATE = 5000;
 
-        public List<DataNodeModel> replication = new List<DataNodeModel>();
+        private List<DataNodeInfo> replication = new List<DataNodeInfo>();
 
         public List<string> DataStored = new List<string>();
 
-        public DataNode(NameNodeInfo nni)
+        public readonly int HEART_BEAT_TIMER = 5000;
+
+        public DataNode()
         {
-            this.nni = nni;
             new Thread(beginOperation).Start();
             new Thread(ConstantHeartBeat).Start();
         }
@@ -80,12 +81,12 @@ namespace Durnit
             }
         }
 
-        private void HeartBeat()
+        private void HeartBeat()//<--- JSON DataNode Info
         {
             string requestData = "";
             foreach (string datum in DataStored)
             {
-                requestData += datum + "-";
+                requestData += datum + ";";
             }
             byte[] requestBytes = new byte[requestData.Length];
             char[] data = requestData.ToCharArray();
@@ -96,25 +97,31 @@ namespace Durnit
             string URI = "http://NameNode:0000/";
             HttpWebRequest request = WebRequest.CreateHttp(URI);
             request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentType = "application/octet-stream";
             request.ContentLength = requestBytes.Length;
-            request.Headers.Add("X-DurnitOp");
-            request.Headers["X-DurnitOp"] = "Heartbeat"; ;
+            request.Headers.Add("X-DurnitOp", "Heartbeat");
             Stream dataStream = request.GetRequestStream();
-            dataStream.Write(requestBytes, 0, requestBytes.Length);
+            StreamWriter sw = new StreamWriter(dataStream);
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.Converters.Add(new JavaScriptDateTimeConverter());
+            serializer.NullValueHandling = NullValueHandling.Ignore;
+            JsonWriter JW = new JsonTextWriter(sw);
+            foreach (DataNodeInfo info in replication)
+            {
+                serializer.Serialize(JW, info.URIAdress);
+            }
         }
 
         private void RequestReplication(string file)
         {
             byte[] requestBytes = File.ReadAllBytes(file);
-            foreach(DataNodeModel DNM in replication ){
-                string URI = DNM.URI;
+            foreach(DataNodeInfo DNM in replication ){
+                string URI = DNM.URIAdress;
                 HttpWebRequest request = WebRequest.CreateHttp(URI);
                 request.Method = "POST";
-                request.ContentType = "application/x-www-form-urlencoded";
+                request.ContentType = "application/octet-stream";
                 request.ContentLength = requestBytes.Length;
-                request.Headers.Add("X-DurnitOp");
-                request.Headers["X-DurnitOp"] = "Replication";
+                request.Headers.Add("X-DurnitOp", "Replication");
                 Stream dataStream = request.GetRequestStream();
                 dataStream.Write(requestBytes, 0, requestBytes.Length);
             }
@@ -125,8 +132,7 @@ namespace Durnit
             string URI = "http://NameNode:0000/";
             HttpWebRequest request = WebRequest.CreateHttp(URI);
             request.Method = "GET";
-            request.Headers.Add("X-DurnitOp");
-            request.Headers["X-DurnitOp"] = "RequestFriends";
+            request.Headers.Add("X-DurnitOp", "NewFriends");
             WebResponse response = request.GetResponse();
             Stream dataStream = response.GetResponseStream();
             char[] responseBytes = new char[dataStream.Length];
@@ -148,10 +154,10 @@ namespace Durnit
                     word = "";
                 }
             }
-            replication = new List<DataNodeModel>();
+            replication = new List<DataNodeInfo>();
             foreach (string s in newFriends)
             {
-                replication.Add(new DataNodeModel(s));
+                replication.Add(new DataNodeInfo());
             }
         }
 
@@ -181,7 +187,7 @@ namespace Durnit
                 }
                 else
                 {
-                    replication.Add(new DataNodeModel(word));
+                    replication.Add(new DataNodeInfo());
                     word = "";
                 }
             }

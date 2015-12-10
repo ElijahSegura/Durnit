@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Durnit", "Durnit\Durnit.csproj", "{AAA09B77-9DBE-47AD-8484-A303CFA65926}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{BEFAE50C-3B97-4F24-85CC-9EDA62256B2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DummyStartupApp", "DummyStartupApp\DummyStartupApp.csproj", "{CE07F711-8CB9-4448-9C5C-36E9A5C1BB39}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{88CF0BB4-AEF7-4A2F-8270-3BE11DD24745}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,10 @@ Global
 		{BEFAE50C-3B97-4F24-85CC-9EDA62256B2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEFAE50C-3B97-4F24-85CC-9EDA62256B2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEFAE50C-3B97-4F24-85CC-9EDA62256B2D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE07F711-8CB9-4448-9C5C-36E9A5C1BB39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE07F711-8CB9-4448-9C5C-36E9A5C1BB39}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE07F711-8CB9-4448-9C5C-36E9A5C1BB39}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE07F711-8CB9-4448-9C5C-36E9A5C1BB39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88CF0BB4-AEF7-4A2F-8270-3BE11DD24745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88CF0BB4-AEF7-4A2F-8270-3BE11DD24745}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88CF0BB4-AEF7-4A2F-8270-3BE11DD24745}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88CF0BB4-AEF7-4A2F-8270-3BE11DD24745}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
