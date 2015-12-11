@@ -97,6 +97,7 @@ namespace Durnit
                 }
                 HttpWebRequest newRequest = (HttpWebRequest)WebRequest.Create(currentDataNode.URIAddress);
                 newRequest.Headers.Add(ourDurnitOp, "NewFriends");
+                newRequest.Method = "POST";
                 JSONWriteToStream(newRequest.GetRequestStream(), urisToSend);
                 newRequest.GetResponse();
             }
