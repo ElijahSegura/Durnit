@@ -260,6 +260,7 @@ namespace Durnit
             thread.IsBackground = false;
             thread.Start();
             //InitializeSelf(myInstruction ?? new InitInstructionModel());
+            Console.WriteLine("ALDHFLAF");
             SendInstructions();
 
             return nni;
@@ -275,6 +276,7 @@ namespace Durnit
         //TODO:
         public void SendInstructions()
         {
+            Console.WriteLine("Wooooooooooooooooooooork...");
             JsonSerializer serializer = new JsonSerializer();
             serializer.Converters.Add(new JavaScriptDateTimeConverter());
             serializer.NullValueHandling = NullValueHandling.Ignore;
@@ -284,12 +286,12 @@ namespace Durnit
                 iim.NameNodeAddress = nni.Address;
                 iim.NameNodePort = nni.Port;
                 Console.WriteLine(iim.NameNodeAddress + ":" + iim.NameNodePort);
-                WebRequest request = WebRequest.Create("http://" + iim.Address + ":" + iim.Port);
+                Console.WriteLine(iim.Address + ":" + iim.Port);
+                WebRequest request = WebRequest.Create("http://" + iim.Address + ":" + iim.Port + "/");
                 request.Method = "POST";
                 request.ContentType = "application/json";
 
                 request.Headers.Add("X-DurnitOp", "Init");
-                
 
                 using (StreamWriter sw = new StreamWriter(request.GetRequestStream()))
                 using (JsonWriter writer = new JsonTextWriter(sw))

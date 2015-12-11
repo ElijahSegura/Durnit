@@ -20,7 +20,7 @@ namespace Client
             WebResponse response = request.GetResponse();
             Console.WriteLine(((HttpWebResponse)response).StatusDescription);
 
-            StreamReader reader = new StreamReader();
+            //StreamReader reader = new StreamReader();
 
             
 
