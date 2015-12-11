@@ -30,7 +30,7 @@ namespace Durnit
         {
             selfInfo = new DataNodeInfo();
             Console.WriteLine("data node initialized");
-            selfInfo.URIAdress = "http://" + info.Address + ":" + info.Port + "/";
+            selfInfo.URIAddress = "http://" + info.Address + ":" + info.Port + "/";
             nameNodeURI = "http://" + info.NameNodeAddress + ":" + info.NameNodePort + "/";
             new Thread(beginOperation).Start();
             new Thread(ConstantHeartBeat).Start();
@@ -44,7 +44,7 @@ namespace Durnit
         private void beginOperation()
         {
             HttpListener listener = new HttpListener();
-            listener.Prefixes.Add(selfInfo.URIAdress);
+            listener.Prefixes.Add(selfInfo.URIAddress);
             listener.Start();
             IAsyncResult context = listener.BeginGetContext(new AsyncCallback(handleRequest), listener);
         }
@@ -94,7 +94,7 @@ namespace Durnit
         {
             while (true)
             {
-                Console.WriteLine(selfInfo.URIAdress + "queued up heartbeat");
+                Console.WriteLine(selfInfo.URIAddress + "queued up heartbeat");
                 System.Threading.Thread.Sleep(HEARTBEAT_RATE);
                 HeartBeat();
             }
@@ -106,7 +106,7 @@ namespace Durnit
         /// </summary>
         private void HeartBeat()
         {
-            Console.WriteLine(selfInfo.URIAdress + "heartbeat");
+            Console.WriteLine(selfInfo.URIAddress + "heartbeat");
 
             HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
             request.Method = "POST";

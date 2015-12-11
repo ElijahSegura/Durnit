@@ -40,8 +40,6 @@ namespace Durnit
 
 
             string durnitOp = requestHeaders.Get(ourDurnitOp).ToLower().Split(':')[0];
-            JsonSerializer serializer = new JsonSerializer();
-
 
             switch (durnitOp)
             {
@@ -67,31 +65,65 @@ namespace Durnit
             {
                 sentInfo = (DataNodeInfo)serializer.Deserialize(JsonRead, typeof(DataNodeInfo));
             }
+
+
             lock(log)
             {
-                DataNodeInfo correspondingInfo = log.FirstOrDefault(x => x.URIAdress == sentInfo.URIAdress);
+                DataNodeInfo correspondingInfo = log.FirstOrDefault(x => x.URIAddress == sentInfo.URIAddress);
                 if (correspondingInfo != null)
                 {
                     correspondingInfo.Files = sentInfo.Files;
+                    correspondingInfo.HowManyFriends = sentInfo.HowManyFriends;
                 }
                 else
-                {
                     log.Add(sentInfo);
-                }
-                Console.WriteLine("HOW MANY I HAVE " + log.Count);
-                foreach (var item in log)
-                {
-                    Console.WriteLine(item.URIAdress + " " + item.Files + " " + item.HowManyFriends + " " + item.connections);
-                }
             }
+
             response.StatusCode = 200;
             response.Close();
+            sendOverNewFriends(sentInfo);
+        }
+
+        private void sendOverNewFriends(DataNodeInfo currentDataNode)
+        {
+            if (needMoreFriends(currentDataNode))
+            {
+                DataNodeInfo[] newFriends = determineNewFriends(currentDataNode);
+                List<string> urisToSend = new List<string>();
+                foreach (DataNodeInfo friend in newFriends)
+                {
+                    urisToSend.Add(friend.URIAddress);
+                }
+                HttpWebRequest newRequest = (HttpWebRequest)WebRequest.Create(currentDataNode.URIAddress);
+                newRequest.Headers.Add(ourDurnitOp, "NewFriends");
+                JSONWriteToStream(newRequest.GetRequestStream(), urisToSend);
+                newRequest.GetResponse();
+            }
+        }
+
+        private void JSONWriteToStream(Stream stream, object whatToWrite)
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.Converters.Add(new JavaScriptDateTimeConverter());
+            serializer.NullValueHandling = NullValueHandling.Ignore;
+
+            using (StreamWriter sw = new StreamWriter(stream))
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                serializer.Serialize(writer, whatToWrite);
+            }
+        }
+
+        private bool needMoreFriends(DataNodeInfo info)
+        {
+            int properAmountOfFriends = log.Count / 2 + 1;
+            return info.HowManyFriends < properAmountOfFriends;
         }
 
         private DataNodeInfo[] determineNewFriends(DataNodeInfo currentDataNode)
         {
             int howMany = 1;
-            return log.Where(x => x.URIAdress != currentDataNode.URIAdress).OrderBy(x => x.HowManyFriends).Take(howMany).ToArray();
+            return log.Where(x => x.URIAddress != currentDataNode.URIAddress).OrderBy(x => x.HowManyFriends).Take(howMany).ToArray();
             //for (int i = 0; i < howMany; i++)
             //{
             //    if(!sorted[i].URIAdress.Equals(currentDataNode.URIAdress))
@@ -123,35 +155,32 @@ namespace Durnit
 
             DataNodeInfo[] nodesToSend = getDataNodesFromCount(howMany);
 
-            using (StreamWriter sw = new StreamWriter(response.OutputStream))
-            using (JsonWriter writer = new JsonTextWriter(sw))
+            List<string> UrisToSend = new List<string>();
+            foreach (DataNodeInfo info in nodesToSend)
             {
-                List<string> UrisToSend = new List<string>();
-                foreach (DataNodeInfo info in nodesToSend)
-                {
-                    UrisToSend.Add(info.URIAdress);
-                }
-                serializer.Serialize(writer, UrisToSend);
-                // {"ExpiryDate":new Date(1230375600000),"Price":0}
+                UrisToSend.Add(info.URIAddress);
             }
+
+            JSONWriteToStream(response.OutputStream, UrisToSend);
             response.StatusCode = 200;
         }
 
         private DataNodeInfo[] getDataNodesFromCount(int howManyToReturn)
         {
-            HashSet<int> indecies = new HashSet<int>();
-            Random generator = new Random();
-            while (indecies.Count != howManyToReturn)
-            {
-                indecies.Add(generator.Next(log.Count));
-            }
-            List<DataNodeInfo> returningList = new List<DataNodeInfo>();
-            foreach (int index in indecies)
-            {
-                returningList.Add(log[index]);
-            }
-            return returningList.ToArray();
-            //throw new NotImplementedException();
+            return log.OrderByDescending(x => x.Files.Count).Take(howManyToReturn).ToArray();
+            //HashSet<int> indecies = new HashSet<int>();
+            //Random generator = new Random();
+            //while (indecies.Count != howManyToReturn)
+            //{
+            //    indecies.Add(generator.Next(log.Count));
+            //}
+            //List<DataNodeInfo> returningList = new List<DataNodeInfo>();
+            //foreach (int index in indecies)
+            //{
+            //    returningList.Add(log[index]);
+            //}
+            //return returningList.ToArray();
+            ////throw new NotImplementedException();
         }
     }
 }

@@ -12,7 +12,6 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            
             WebRequest request = WebRequest.Create("http://localhost:8080/");
 
             request.Headers.Add("X-DurnitOp", "GetDatanodes:2");
