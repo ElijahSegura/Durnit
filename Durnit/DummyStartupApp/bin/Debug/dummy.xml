@@ -2,22 +2,21 @@
 	<identity>
 		<nameNode>
 			<address>127.0.0.1</address>
-			<port>1234</port>
+			<port>8080</port>
 		</nameNode>
 	</identity>
-
 	<dataNode>
-		<address>123.456.789.012</address>
-		<port>5678</port>
+		<address>127.0.0.1</address>
+		<port>12345</port>
 	</dataNode>
 
-	<dataNode>
-		<address>345.678.901.234</address>
+	<!-- <dataNode>
+		<address>127.0.0.1</address>
 		<port>9012</port>
 	</dataNode>
 
 	<dataNode>
-		<address>567.890.123.456</address>
+		<address>127.0.0.1</address>
 		<port>3456</port>
-	</dataNode>
+	</dataNode> -->
 </config>
