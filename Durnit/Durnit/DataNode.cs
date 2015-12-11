@@ -211,6 +211,7 @@ namespace Durnit
         {
             byte[] dataBytes = File.ReadAllBytes(file);
             HttpListenerResponse response = context.Response;
+            response.AddHeader("content-disposition", "attachment; filename=" + file);
             response.OutputStream.Write(dataBytes, 0, dataBytes.Length);
         }
     }
