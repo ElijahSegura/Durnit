@@ -33,6 +33,7 @@ namespace Durnit
             Console.WriteLine("NameNode : handling request");
             HttpListener listener = (HttpListener)ar.AsyncState;
             listener.BeginGetContext(new AsyncCallback(handleRequest), listener);
+            Console.WriteLine("Queued up another one: " + this.URI);
 
             HttpListenerContext context = listener.EndGetContext(ar);
             HttpListenerRequest request = context.Request;
@@ -50,11 +51,27 @@ namespace Durnit
                 case "heartbeat":
                     handleHeartBeat(request, response);
                     break;
+                case "getfile":
+                    handleGetFile(request, response);
+                    break;
                 default:
                     response.StatusCode = 404;
                     break;
             }
             response.Close();
+        }
+
+        private void handleGetFile(HttpListenerRequest request, HttpListenerResponse response)
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            DataNodeInfo sentInfo;
+            using (StreamReader reader = new StreamReader(request.InputStream))
+            using (JsonReader JsonRead = new JsonTextReader(reader))
+            {
+                sentInfo = (DataNodeInfo)serializer.Deserialize(JsonRead, typeof(DataNodeInfo));
+            }
+
+            
         }
 
         private void handleHeartBeat(HttpListenerRequest request, HttpListenerResponse response)
@@ -73,6 +90,7 @@ namespace Durnit
                 DataNodeInfo correspondingInfo = log.FirstOrDefault(x => x.URIAddress == sentInfo.URIAddress);
                 if (correspondingInfo != null)
                 {
+                    Console.WriteLine(correspondingInfo.URIAddress + " HEART BEAT HANDLED");
                     correspondingInfo.Files = sentInfo.Files;
                     correspondingInfo.HowManyFriends = sentInfo.HowManyFriends;
                 }
@@ -99,7 +117,9 @@ namespace Durnit
                 newRequest.Headers.Add(ourDurnitOp, "NewFriends");
                 newRequest.Method = "POST";
                 JSONWriteToStream(newRequest.GetRequestStream(), urisToSend);
-                newRequest.GetResponse();
+                WebResponse response = newRequest.GetResponse();
+                response.Close();
+                response.Dispose();
             }
         }
 

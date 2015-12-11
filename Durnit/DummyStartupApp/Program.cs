@@ -15,7 +15,6 @@ namespace DummyStartupApp
             Console.WriteLine(args[1]);
             Initialization i = new Initialization(args[0], args[1]);
             i.Start("dummy.xml");
-            Console.WriteLine("HELLO");
         }
     }
 }

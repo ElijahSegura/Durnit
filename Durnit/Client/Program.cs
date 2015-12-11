@@ -11,7 +11,12 @@ namespace Client
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
+        {
+            GetDataNodesOp();
+        }
+
+        public static void GetDataNodesOp()
         {
             WebRequest request = WebRequest.Create("http://localhost:8080/");
 
@@ -31,7 +36,12 @@ namespace Client
             foreach (string uri in URIs)
             {
                 Console.WriteLine(uri);
+                WebRequest r = WebRequest.Create(uri);
+                string contentDisposition = "attachment; filename=" + "file.txt";
+
+                r.Headers.Add("content-dispostion", contentDisposition);
             }
+            
 
             response.Close();
         }
