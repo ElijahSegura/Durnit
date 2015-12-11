@@ -15,7 +15,8 @@ namespace Durnit
     {
         private string ourDurnitOp = "X-DurnitOp";
         private List<DataNodeInfo> log;
-        private string URI = "http://localhost:8080/";
+        private string URI;
+
         public NameNode(string Address, string Port)
         {
             URI = "http://" + Address + ":" + Port + "/";
@@ -66,17 +67,49 @@ namespace Durnit
             {
                 sentInfo = (DataNodeInfo)serializer.Deserialize(JsonRead, typeof(DataNodeInfo));
             }
-            DataNodeInfo correspondingInfo = log.FirstOrDefault(x => x.ID == sentInfo.ID);
-            if (correspondingInfo != null)
+            lock(log)
             {
-                correspondingInfo.Files = sentInfo.Files;
+                DataNodeInfo correspondingInfo = log.FirstOrDefault(x => x.URIAdress == sentInfo.URIAdress);
+                if (correspondingInfo != null)
+                {
+                    correspondingInfo.Files = sentInfo.Files;
+                }
+                else
+                {
+                    log.Add(sentInfo);
+                }
+                Console.WriteLine("HOW MANY I HAVE " + log.Count);
+                foreach (var item in log)
+                {
+                    Console.WriteLine(item.URIAdress + " " + item.Files + " " + item.HowManyFriends + " " + item.connections);
+                }
             }
-            else
-            {
-                log.Add(sentInfo);
-            }
-
             response.StatusCode = 200;
+            response.Close();
+        }
+
+        private DataNodeInfo[] determineNewFriends(DataNodeInfo currentDataNode)
+        {
+            int howMany = 1;
+            return log.Where(x => x.URIAdress != currentDataNode.URIAdress).OrderBy(x => x.HowManyFriends).Take(howMany).ToArray();
+            //for (int i = 0; i < howMany; i++)
+            //{
+            //    if(!sorted[i].URIAdress.Equals(currentDataNode.URIAdress))
+            //        friends[]
+            //}
+
+            //HashSet<int> indecies = new HashSet<int>();
+            //Random generator = new Random();
+            //while (indecies.Count != 4)
+            //{
+            //    indecies.Add(generator.Next(log.Count));
+            //}
+            //List<DataNodeInfo> returningList = new List<DataNodeInfo>();
+            //foreach (int index in indecies)
+            //{
+            //    returningList.Add(log[index]);
+            //}
+            //return returningList.ToArray();
         }
 
         //expecting GetDatanodes:(number)
@@ -93,10 +126,12 @@ namespace Durnit
             using (StreamWriter sw = new StreamWriter(response.OutputStream))
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
+                List<string> UrisToSend = new List<string>();
                 foreach (DataNodeInfo info in nodesToSend)
                 {
-                    serializer.Serialize(writer, info.URIAdress);
+                    UrisToSend.Add(info.URIAdress);
                 }
+                serializer.Serialize(writer, UrisToSend);
                 // {"ExpiryDate":new Date(1230375600000),"Price":0}
             }
             response.StatusCode = 200;
