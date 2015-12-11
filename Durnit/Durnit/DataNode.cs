@@ -16,7 +16,7 @@ namespace Durnit
 {
     public class DataNode : INode
     {
-        private const int HEARTBEAT_RATE = 1000;
+        private const int HEARTBEAT_RATE = 3000;
 
         /// <summary>
         /// A list of DataNodeInfo objects
@@ -46,13 +46,19 @@ namespace Durnit
         private void beginOperation()
         {
             inOperation = true;
+
             HttpListener listener = new HttpListener();
             listener.Prefixes.Add(selfInfo.URIAddress);
             listener.Start();
+
             while (inOperation)
             {
+
+
             IAsyncResult context = listener.BeginGetContext(new AsyncCallback(handleRequest), listener);
+
         }
+
         }
 
         /// <summary>
@@ -68,6 +74,7 @@ namespace Durnit
 
             if (context.Request.HttpMethod.Equals("POST"))
             {
+                Console.WriteLine(context.Request.Headers["X-DurnitOp"]);
                 if (context.Request.Headers["X-DurnitOp"].Equals("Replication"))
                 {
                     string fileName = context.Request.Headers["X-FileName"];
@@ -79,6 +86,7 @@ namespace Durnit
                 }
                 else if (context.Request.Headers["X-DurnitOp"].Equals("NewFriends"))
                 {
+                    Console.WriteLine("new friending");
                     NewFriend(context.Request);
                 }
             }
@@ -112,6 +120,7 @@ namespace Durnit
         private void HeartBeat()
         {
             Console.WriteLine(selfInfo.URIAddress + "heartbeat");
+
             HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
             request.Method = "POST";
             request.Headers.Add("X-DurnitOp", "Heartbeat");
@@ -125,8 +134,8 @@ namespace Durnit
                 JsonWriter JW = new JsonTextWriter(sw);
                 serializer.Serialize(JW, selfInfo);
             }
-          
-            request.GetResponse().Close();
+                request.GetResponse().Close();
+
         }
 
         /// <summary>
