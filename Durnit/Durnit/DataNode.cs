@@ -25,9 +25,12 @@ namespace Durnit
 
         public DataNode(InitInstructionModel info)
         {
+            Console.WriteLine("NameNode Stuff: " + info.NameNodeAddress + ":" + info.NameNodePort);
             Console.WriteLine("data node initialized");
             myURI = "http://" + info.Address + ":" + info.Port + "/";
             nameNodeURI = "http://" + info.NameNodeAddress + ":" + info.NameNodePort + "/";
+            Console.WriteLine("MyUri: " + myURI);
+            Console.WriteLine("NameNodeUri: " + nameNodeURI);
             new Thread(beginOperation).Start();
             new Thread(ConstantHeartBeat).Start();
         }
