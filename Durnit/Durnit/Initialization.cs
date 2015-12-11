@@ -133,6 +133,8 @@ namespace Durnit
         //TODO:
         public void InitializeSelf(InitInstructionModel init)
         {
+            init.NameNodeAddress = nni.Address;
+            init.NameNodePort = nni.Port;
             keepGoing = false;
             switch (init.Instruction)
             {
@@ -255,6 +257,12 @@ namespace Durnit
                 }
             }
 
+            foreach (var iim in instructions)
+            {
+                iim.NameNodeAddress = nni.Address;
+                iim.NameNodePort = nni.Port;
+            }
+
             var thread = new Thread(
                     () => InitializeSelf(myInstruction ?? new InitInstructionModel()));
             thread.IsBackground = false;
@@ -275,6 +283,7 @@ namespace Durnit
         //TODO:
         public void SendInstructions()
         {
+            Console.WriteLine("Wooooooooooooooooooooork...");
             JsonSerializer serializer = new JsonSerializer();
             serializer.Converters.Add(new JavaScriptDateTimeConverter());
             serializer.NullValueHandling = NullValueHandling.Ignore;
@@ -284,24 +293,23 @@ namespace Durnit
                 iim.NameNodeAddress = nni.Address;
                 iim.NameNodePort = nni.Port;
                 Console.WriteLine(iim.NameNodeAddress + ":" + iim.NameNodePort);
-                WebRequest request = WebRequest.Create("http://" + iim.Address + ":" + iim.Port);
+                Console.WriteLine(iim.Address + ":" + iim.Port);
+                WebRequest request = WebRequest.Create("http://" + iim.Address + ":" + iim.Port + "/");
                 request.Method = "POST";
                 request.ContentType = "application/json";
 
                 request.Headers.Add("X-DurnitOp", "Init");
-                
 
                 using (StreamWriter sw = new StreamWriter(request.GetRequestStream()))
                 using (JsonWriter writer = new JsonTextWriter(sw))
                 {
-                    iim.NameNodeAddress = nni.Address;
-                    iim.NameNodePort = nni.Port;
+
                     serializer.Serialize(writer, iim);
 
                     // {"ExpiryDate":new Date(1230375600000),"Price":0}
                 }
                 Console.WriteLine("about to get response");
-                request.GetResponse();
+                request.GetResponse().Close();
                 Console.WriteLine("got response");
             }
         }

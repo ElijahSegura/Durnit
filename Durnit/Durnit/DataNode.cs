@@ -9,6 +9,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Durnit.Models;
+using System.Text.RegularExpressions;
 
 
 namespace Durnit
@@ -21,9 +22,9 @@ namespace Durnit
         /// A list of DataNodeInfo objects
         /// </summary>
 
-        private DataNodeInfo selfInfo;
+        private bool inOperation;
 
-        public List<string> DataStored = new List<string>();
+        private DataNodeInfo selfInfo;
 
 
         public DataNode(InitInstructionModel info)
@@ -31,6 +32,7 @@ namespace Durnit
             selfInfo = new DataNodeInfo();
             Console.WriteLine("data node initialized");
             selfInfo.URIAddress = "http://" + info.Address + ":" + info.Port + "/";
+            selfInfo.connections = new List<string>();
             nameNodeURI = "http://" + info.NameNodeAddress + ":" + info.NameNodePort + "/";
             new Thread(beginOperation).Start();
             new Thread(ConstantHeartBeat).Start();
@@ -43,10 +45,14 @@ namespace Durnit
         /// </summary>
         private void beginOperation()
         {
+            inOperation = true;
             HttpListener listener = new HttpListener();
             listener.Prefixes.Add(selfInfo.URIAddress);
             listener.Start();
+            while (inOperation)
+            {
             IAsyncResult context = listener.BeginGetContext(new AsyncCallback(handleRequest), listener);
+        }
         }
 
         /// <summary>
@@ -70,10 +76,9 @@ namespace Durnit
                 }
                 else if (context.Request.Headers["X-DurnitOp"].Equals("DataCreation"))
                 {
-                    string fileName = context.Request.Headers["X-FileName"];
-                    DataCreation(context.Request, fileName);
+                    DataCreation(context.Request);
                 }
-                else if (context.Request.Headers["X-DurnitOp"].Equals("NewFriend"))
+                else if (context.Request.Headers["X-DurnitOp"].Equals("NewFriends"))
                 {
                     Console.WriteLine("new friending");
                     NewFriend(context.Request);
@@ -109,12 +114,18 @@ namespace Durnit
         private void HeartBeat()
         {
             Console.WriteLine(selfInfo.URIAddress + "heartbeat");
+<<<<<<< HEAD
 
             try
             {
                 HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
                 request.Method = "POST";
                 request.Headers.Add("X-DurnitOp", "Heartbeat");
+=======
+            HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
+            request.Method = "POST";
+            request.Headers.Add("X-DurnitOp", "Heartbeat");
+>>>>>>> 240d37ac6c389cfafb6f478197e7d5affbbeb3e8
 
                 using (Stream dataStream = request.GetRequestStream())
                 using (StreamWriter sw = new StreamWriter(dataStream))
@@ -131,7 +142,12 @@ namespace Durnit
             {
                 Console.WriteLine(e.Message);
             }
+<<<<<<< HEAD
 
+=======
+          
+            request.GetResponse().Close();
+>>>>>>> 240d37ac6c389cfafb6f478197e7d5affbbeb3e8
         }
 
         /// <summary>
@@ -150,52 +166,19 @@ namespace Durnit
                 request.Headers.Add("X-DurnitOp", "Replication");
                 Stream dataStream = request.GetRequestStream();
                 dataStream.Write(requestBytes, 0, requestBytes.Length);
+                request.GetResponse().Close() ;
             }
         }
-
-        ///// <summary>
-        ///// Requests the name node to provide new nodes to be in contact with.
-        ///// </summary>
-        //private void getFriends()
-        //{
-        //    HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
-        //    request.Method = "GET";
-        //    request.Headers.Add("X-DurnitOp", "NewFriends");
-        //    WebResponse response = request.GetResponse();
-        //    Stream dataStream = response.GetResponseStream();
-        //    char[] responseBytes = new char[dataStream.Length];
-        //    for (int i = 0; i < responseBytes.Length; i++)
-        //    {
-        //        responseBytes[i] = (char)dataStream.ReadByte();
-        //    }
-        //    List<string> newFriends = new List<string>();
-        //    string word = "";
-        //    for (int j = 0; j < responseBytes.Length; j++)
-        //    {
-        //        if (responseBytes[j] != ';')
-        //        {
-        //            word += responseBytes[j];
-        //        }
-        //        else
-        //        {
-        //            newFriends.Add(word);
-        //            word = "";
-        //        }
-        //    }
-        //    selfInfo.connections = new List<string>();
-        //    foreach (string s in newFriends)
-        //    {
-        //        selfInfo.connections.Add(s);
-        //    }
-        //}
 
         /// <summary>
         /// Creates data on the node, requests the nodes that this node is in contact with replicate the same data
         /// </summary>
         /// <param name="request">The request which started the creation</param>
         /// <param name="file">The file path</param>
-        private void DataCreation(HttpListenerRequest request, string file)
-        {
+        private void DataCreation(HttpListenerRequest request){
+            string contentDisposition = request.Headers["content-disposition"];
+            Regex filePattern = new Regex("(\\w+.\\w*)");
+            string file = filePattern.Match(contentDisposition).ToString();
             DataReplication(request, file);
             RequestReplication(file);
         }
@@ -219,22 +202,20 @@ namespace Durnit
         /// <param name="request">the request which asked for new friend creation</param>
         private void NewFriend(HttpListenerRequest request)
         {
+<<<<<<< HEAD
             Console.WriteLine("new friend");
+=======
+            JsonSerializer Jace = new JsonSerializer();
+            
+>>>>>>> 240d37ac6c389cfafb6f478197e7d5affbbeb3e8
             byte[] theData = new byte[request.InputStream.Length];
             request.InputStream.Read(theData, 0, theData.Length);
-            string word = "";
+            string json = "";
             for (int j = 0; j < theData.Length; j++)
             {
-                if (theData[j] != ';')
-                {
-                    word += theData[j];
-                }
-                else
-                {
-                    selfInfo.connections.Add(word);
-                    word = "";
-                }
+                    json += theData[j];
             }
+            List<string> addresses = JsonConvert.DeserializeObject<List<string>>(json);
         }
 
         /// <summary>
