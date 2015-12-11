@@ -9,6 +9,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Durnit.Models;
+using System.Text.RegularExpressions;
 
 
 namespace Durnit
@@ -74,8 +75,7 @@ namespace Durnit
                 }
                 else if (context.Request.Headers["X-DurnitOp"].Equals("DataCreation"))
                 {
-                    string fileName = context.Request.Headers["X-FileName"];
-                    DataCreation(context.Request, fileName);
+                    DataCreation(context.Request);
                 }
                 else if (context.Request.Headers["X-DurnitOp"].Equals("NewFriends"))
                 {
@@ -145,52 +145,19 @@ namespace Durnit
                 request.Headers.Add("X-DurnitOp", "Replication");
                 Stream dataStream = request.GetRequestStream();
                 dataStream.Write(requestBytes, 0, requestBytes.Length);
+                request.GetResponse().Close() ;
             }
         }
-
-        ///// <summary>
-        ///// Requests the name node to provide new nodes to be in contact with.
-        ///// </summary>
-        //private void getFriends()
-        //{
-        //    HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
-        //    request.Method = "GET";
-        //    request.Headers.Add("X-DurnitOp", "NewFriends");
-        //    WebResponse response = request.GetResponse();
-        //    Stream dataStream = response.GetResponseStream();
-        //    char[] responseBytes = new char[dataStream.Length];
-        //    for (int i = 0; i < responseBytes.Length; i++)
-        //    {
-        //        responseBytes[i] = (char)dataStream.ReadByte();
-        //    }
-        //    List<string> newFriends = new List<string>();
-        //    string word = "";
-        //    for (int j = 0; j < responseBytes.Length; j++)
-        //    {
-        //        if (responseBytes[j] != ';')
-        //        {
-        //            word += responseBytes[j];
-        //        }
-        //        else
-        //        {
-        //            newFriends.Add(word);
-        //            word = "";
-        //        }
-        //    }
-        //    selfInfo.connections = new List<string>();
-        //    foreach (string s in newFriends)
-        //    {
-        //        selfInfo.connections.Add(s);
-        //    }
-        //}
 
         /// <summary>
         /// Creates data on the node, requests the nodes that this node is in contact with replicate the same data
         /// </summary>
         /// <param name="request">The request which started the creation</param>
         /// <param name="file">The file path</param>
-        private void DataCreation(HttpListenerRequest request, string file)
-        {
+        private void DataCreation(HttpListenerRequest request){
+            string contentDisposition = request.Headers["content-disposition"];
+            Regex filePattern = new Regex("(\\w+.\\w*)");
+            string file = filePattern.Match(contentDisposition).ToString();
             DataReplication(request, file);
             RequestReplication(file);
         }
