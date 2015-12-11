@@ -107,21 +107,9 @@ namespace Durnit
         private void HeartBeat()
         {
             Console.WriteLine(selfInfo.URIAdress + "heartbeat");
-            string requestData = "";
-            foreach (string datum in DataStored)
-            {
-                requestData += datum + ";";
-            }
-            byte[] requestBytes = new byte[requestData.Length];
-            char[] data = requestData.ToCharArray();
-            for (int i = 0; i < requestData.Length; i++)
-            {
-                requestBytes[i] = (byte)data[i];
-            }
+
             HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
             request.Method = "POST";
-            request.ContentType = "application/octet-stream";
-            request.ContentLength = requestBytes.Length;
             request.Headers.Add("X-DurnitOp", "Heartbeat");
 
             using (Stream dataStream = request.GetRequestStream())
@@ -133,7 +121,7 @@ namespace Durnit
                 JsonWriter JW = new JsonTextWriter(sw);
                 serializer.Serialize(JW, selfInfo);
             }
-
+          
             request.GetResponse();
         }
 
