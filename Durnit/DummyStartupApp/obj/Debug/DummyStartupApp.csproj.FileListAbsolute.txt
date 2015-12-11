@@ -26,3 +26,4 @@ C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\DummyStartupApp\bin\Debug\
 C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\DummyStartupApp\bin\Debug\Durnit.pdb
 C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\DummyStartupApp\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\DummyStartupApp\obj\Debug\DummyStartupApp.pdb
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\DummyStartupApp\bin\Debug\Newtonsoft.Json.xml

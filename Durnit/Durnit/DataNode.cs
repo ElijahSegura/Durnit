@@ -21,6 +21,8 @@ namespace Durnit
         /// A list of DataNodeInfo objects
         /// </summary>
 
+        private bool inOperation;
+
         private DataNodeInfo selfInfo;
 
 
@@ -42,10 +44,14 @@ namespace Durnit
         /// </summary>
         private void beginOperation()
         {
+            inOperation = true;
             HttpListener listener = new HttpListener();
             listener.Prefixes.Add(selfInfo.URIAdress);
             listener.Start();
-            IAsyncResult context = listener.BeginGetContext(new AsyncCallback(handleRequest), listener);
+            while (inOperation)
+            {
+                IAsyncResult context = listener.BeginGetContext(new AsyncCallback(handleRequest), listener);
+            }
         }
 
         /// <summary>
@@ -71,7 +77,7 @@ namespace Durnit
                     string fileName = context.Request.Headers["X-FileName"];
                     DataCreation(context.Request, fileName);
                 }
-                else if (context.Request.Headers["X-DurnitOp"].Equals("NewFriend"))
+                else if (context.Request.Headers["X-DurnitOp"].Equals("NewFriends"))
                 {
                     NewFriend(context.Request);
                 }
@@ -208,21 +214,16 @@ namespace Durnit
         /// <param name="request">the request which asked for new friend creation</param>
         private void NewFriend(HttpListenerRequest request)
         {
+            JsonSerializer Jace = new JsonSerializer();
+            
             byte[] theData = new byte[request.InputStream.Length];
             request.InputStream.Read(theData, 0, theData.Length);
-            string word = "";
+            string json = "";
             for (int j = 0; j < theData.Length; j++)
             {
-                if (theData[j] != ';')
-                {
-                    word += theData[j];
-                }
-                else
-                {
-                    selfInfo.connections.Add(word);
-                    word = "";
-                }
+                    json += theData[j];
             }
+            List<string> addresses = JsonConvert.DeserializeObject<List<string>>(json);
         }
 
         /// <summary>
