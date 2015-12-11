@@ -114,28 +114,20 @@ namespace Durnit
         private void HeartBeat()
         {
             Console.WriteLine(selfInfo.URIAddress + "heartbeat");
-<<<<<<< HEAD
 
-            try
-            {
-                HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
-                request.Method = "POST";
-                request.Headers.Add("X-DurnitOp", "Heartbeat");
-=======
             HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
             request.Method = "POST";
             request.Headers.Add("X-DurnitOp", "Heartbeat");
->>>>>>> 240d37ac6c389cfafb6f478197e7d5affbbeb3e8
 
-                using (Stream dataStream = request.GetRequestStream())
-                using (StreamWriter sw = new StreamWriter(dataStream))
-                {
-                    JsonSerializer serializer = new JsonSerializer();
-                    serializer.Converters.Add(new JavaScriptDateTimeConverter());
-                    serializer.NullValueHandling = NullValueHandling.Ignore;
-                    JsonWriter JW = new JsonTextWriter(sw);
-                    serializer.Serialize(JW, selfInfo);
-                }
+            using (Stream dataStream = request.GetRequestStream())
+            using (StreamWriter sw = new StreamWriter(dataStream))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Converters.Add(new JavaScriptDateTimeConverter());
+                serializer.NullValueHandling = NullValueHandling.Ignore;
+                JsonWriter JW = new JsonTextWriter(sw);
+                serializer.Serialize(JW, selfInfo);
+            }
                 request.GetResponse().Close();
             }
             catch(Exception e)
@@ -143,11 +135,8 @@ namespace Durnit
                 Console.WriteLine(e.Message);
             }
 <<<<<<< HEAD
-
-=======
           
             request.GetResponse().Close();
->>>>>>> 240d37ac6c389cfafb6f478197e7d5affbbeb3e8
         }
 
         /// <summary>
@@ -202,12 +191,8 @@ namespace Durnit
         /// <param name="request">the request which asked for new friend creation</param>
         private void NewFriend(HttpListenerRequest request)
         {
-<<<<<<< HEAD
-            Console.WriteLine("new friend");
-=======
             JsonSerializer Jace = new JsonSerializer();
             
->>>>>>> 240d37ac6c389cfafb6f478197e7d5affbbeb3e8
             byte[] theData = new byte[request.InputStream.Length];
             request.InputStream.Read(theData, 0, theData.Length);
             string json = "";
