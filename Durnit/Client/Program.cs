@@ -20,10 +20,18 @@ namespace Client
             WebResponse response = request.GetResponse();
             Console.WriteLine(((HttpWebResponse)response).StatusDescription);
 
-            StreamReader reader = new StreamReader();
+            Stream stream = response.GetResponseStream();
 
-            
+            StreamReader sw = new StreamReader(stream);
+            JsonTextReader jtr = new JsonTextReader(sw);
 
+            JsonSerializer serializer = new JsonSerializer();
+            List<string> URIs = (List<string>)serializer.Deserialize(jtr);
+
+            foreach (string uri in URIs)
+            {
+                Console.WriteLine(uri);
+            }
 
             response.Close();
         }

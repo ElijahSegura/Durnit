@@ -25,6 +25,7 @@ namespace Durnit
             listener.Prefixes.Add(URI);
             listener.Start();
             listener.BeginGetContext(new AsyncCallback(handleRequest), listener);
+            //while (true) { }
         }
 
         private void handleRequest(IAsyncResult ar)
