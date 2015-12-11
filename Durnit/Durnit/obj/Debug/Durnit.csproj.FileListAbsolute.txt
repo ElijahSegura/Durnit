@@ -4,3 +4,10 @@ C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Newtonsof
 C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.dll
 C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.pdb
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Durnit.dll
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Durnit.pdb
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.csprojResolveAssemblyReference.cache
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.dll
+C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.pdb

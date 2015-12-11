@@ -48,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataNode.cs" />
-    <Compile Include="DataNodeModel.cs" />
     <Compile Include="Exceptions\SyntaxErrorException.cs" />
     <Compile Include="Initialization.cs" />
     <Compile Include="Interfaces\INode.cs" />
