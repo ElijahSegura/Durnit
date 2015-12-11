@@ -264,7 +264,7 @@ namespace Durnit
             }
 
             var thread = new Thread(
-                    () => InitializeSelf(myInstruction ?? new InitInstructionModel()));
+                () => InitializeSelf(myInstruction ?? new InitInstructionModel()));
             thread.IsBackground = false;
             thread.Start();
             //InitializeSelf(myInstruction ?? new InitInstructionModel());
@@ -287,6 +287,8 @@ namespace Durnit
             JsonSerializer serializer = new JsonSerializer();
             serializer.Converters.Add(new JavaScriptDateTimeConverter());
             serializer.NullValueHandling = NullValueHandling.Ignore;
+
+            instructions.Where(iim => iim.Instruction == InitInstructions.NAMENODE).First();
 
             foreach (var iim in instructions)
             {
