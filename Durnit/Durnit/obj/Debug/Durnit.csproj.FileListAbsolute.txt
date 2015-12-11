@@ -1,29 +1,22 @@
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Durnit.dll
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Durnit.pdb
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.dll
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.pdb
+<<<<<<< HEAD
 C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\bin\Debug\Durnit.dll
 C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\bin\Debug\Durnit.pdb
 C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\bin\Debug\mscorlib.dll
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\bin\Debug\normidna.nlp
 C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\bin\Debug\normnfc.nlp
 C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\bin\Debug\normnfd.nlp
 C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\bin\Debug\normnfkc.nlp
 C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\bin\Debug\normnfkd.nlp
-C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\obj\Debug\Durnit.csprojResolveAssemblyReference.cache
 C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\obj\Debug\Durnit.dll
 C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Durnit\obj\Debug\Durnit.pdb
-C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Durnit.dll
-C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Durnit.pdb
-C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Newtonsoft.Json.dll
+=======
 C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.csprojResolveAssemblyReference.cache
-C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.dll
-C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.pdb
-C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Durnit.dll
-C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Durnit.pdb
-C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\bin\Debug\Newtonsoft.Json.dll
-C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.csprojResolveAssemblyReference.cache
-C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.dll
-C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.pdb
-C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Durnit\obj\Debug\Durnit.csprojResolveAssemblyReference.cache
-C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Durnit\obj\Debug\Durnit.dll
-C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Durnit\bin\Debug\Durnit.dll
-C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Durnit\bin\Debug\Durnit.pdb
-C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Durnit\bin\Debug\Newtonsoft.Json.dll
-C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Durnit\obj\Debug\Durnit.pdb
+>>>>>>> origin/master

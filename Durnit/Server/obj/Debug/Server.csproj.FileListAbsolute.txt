@@ -16,9 +16,16 @@ C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Server\bin\Debug\Server.p
 C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
 C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Server\obj\Debug\Server.exe
 C:\Users\Glenn Shanahan\Documents\GitHub\Durnit\Durnit\Server\obj\Debug\Server.pdb
+<<<<<<< HEAD
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Server\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Diego Suarez\Desktop\School Stuff\Current Classes\Distributed Systems\code\Durnit\Durnit\Server\bin\Debug\Newtonsoft.Json.xml
+=======
 C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\bin\Debug\Server.exe.config
 C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\bin\Debug\Server.exe
 C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\bin\Debug\Server.pdb
 C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
 C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\obj\Debug\Server.exe
 C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Server\obj\Debug\Server.pdb
+>>>>>>> 9971bce5eaaeebfb458e86fc9752d11ba4ef87c7
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Server\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Server\bin\Debug\Newtonsoft.Json.xml
