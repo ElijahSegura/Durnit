@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,13 +21,11 @@ namespace Client
             WebResponse response = request.GetResponse();
             Console.WriteLine(((HttpWebResponse)response).StatusDescription);
 
-            Stream stream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(stream);
+            StreamReader reader = new StreamReader();
 
-            string message = reader.ReadToEnd();
-            Console.WriteLine(message);
+            
 
-            reader.Close();
+
             response.Close();
         }
     }
