@@ -15,7 +15,7 @@ namespace Durnit
 {
     public class DataNode : INode
     {
-        private const int HEARTBEAT_RATE = 1000;
+        private const int HEARTBEAT_RATE = 3000;
 
         /// <summary>
         /// A list of DataNodeInfo objects
@@ -62,6 +62,7 @@ namespace Durnit
 
             if (context.Request.HttpMethod.Equals("POST"))
             {
+                Console.WriteLine(context.Request.Headers["X-DurnitOp"]);
                 if (context.Request.Headers["X-DurnitOp"].Equals("Replication"))
                 {
                     string fileName = context.Request.Headers["X-FileName"];
@@ -74,6 +75,7 @@ namespace Durnit
                 }
                 else if (context.Request.Headers["X-DurnitOp"].Equals("NewFriend"))
                 {
+                    Console.WriteLine("new friending");
                     NewFriend(context.Request);
                 }
             }
@@ -108,21 +110,28 @@ namespace Durnit
         {
             Console.WriteLine(selfInfo.URIAddress + "heartbeat");
 
-            HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
-            request.Method = "POST";
-            request.Headers.Add("X-DurnitOp", "Heartbeat");
-
-            using (Stream dataStream = request.GetRequestStream())
-            using (StreamWriter sw = new StreamWriter(dataStream))
+            try
             {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Converters.Add(new JavaScriptDateTimeConverter());
-                serializer.NullValueHandling = NullValueHandling.Ignore;
-                JsonWriter JW = new JsonTextWriter(sw);
-                serializer.Serialize(JW, selfInfo);
+                HttpWebRequest request = WebRequest.CreateHttp(nameNodeURI);
+                request.Method = "POST";
+                request.Headers.Add("X-DurnitOp", "Heartbeat");
+
+                using (Stream dataStream = request.GetRequestStream())
+                using (StreamWriter sw = new StreamWriter(dataStream))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Converters.Add(new JavaScriptDateTimeConverter());
+                    serializer.NullValueHandling = NullValueHandling.Ignore;
+                    JsonWriter JW = new JsonTextWriter(sw);
+                    serializer.Serialize(JW, selfInfo);
+                }
+                request.GetResponse().Close();
             }
-          
-            request.GetResponse();
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
         }
 
         /// <summary>
@@ -210,6 +219,7 @@ namespace Durnit
         /// <param name="request">the request which asked for new friend creation</param>
         private void NewFriend(HttpListenerRequest request)
         {
+            Console.WriteLine("new friend");
             byte[] theData = new byte[request.InputStream.Length];
             request.InputStream.Read(theData, 0, theData.Length);
             string word = "";
