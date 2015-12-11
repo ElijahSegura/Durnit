@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Durnit
 {
-    class DataNodeInfo
+    public class DataNodeInfo
     {
         public string URIAddress { get; set; }
         public int HowManyFriends { get; set; }
