@@ -46,13 +46,19 @@ namespace Durnit
         private void beginOperation()
         {
             inOperation = true;
+
             HttpListener listener = new HttpListener();
             listener.Prefixes.Add(selfInfo.URIAddress);
             listener.Start();
+
             while (inOperation)
             {
+
+
             IAsyncResult context = listener.BeginGetContext(new AsyncCallback(handleRequest), listener);
+
         }
+
         }
 
         /// <summary>
@@ -129,14 +135,7 @@ namespace Durnit
                 serializer.Serialize(JW, selfInfo);
             }
                 request.GetResponse().Close();
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-<<<<<<< HEAD
-          
-            request.GetResponse().Close();
+
         }
 
         /// <summary>

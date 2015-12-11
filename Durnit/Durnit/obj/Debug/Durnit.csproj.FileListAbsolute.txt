@@ -11,3 +11,4 @@ C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Durnit\bin\Debug\Newtonsoft.Json.x
 C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Durnit\obj\Debug\Durnit.dll
 C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Durnit\obj\Debug\Durnit.pdb
 C:\Users\Zachary Bunyard\Source\Durnit\Durnit\Durnit\obj\Debug\Durnit.csprojResolveAssemblyReference.cache
+C:\Users\Elijah Segura\Documents\GitHub\Durnit\Durnit\Durnit\obj\Debug\Durnit.csprojResolveAssemblyReference.cache
