@@ -133,8 +133,11 @@ namespace Durnit
         //TODO:
         public void InitializeSelf(InitInstructionModel init)
         {
-            init.NameNodeAddress = nni.Address;
-            init.NameNodePort = nni.Port;
+            if (init.NameNodeAddress == null || init.NameNodeAddress == "")
+            {
+                init.NameNodeAddress = nni.Address;
+                init.NameNodePort = nni.Port;
+            }
             keepGoing = false;
             switch (init.Instruction)
             {
@@ -268,6 +271,7 @@ namespace Durnit
             thread.IsBackground = false;
             thread.Start();
             //InitializeSelf(myInstruction ?? new InitInstructionModel());
+
             SendInstructions();
 
             return nni;
@@ -288,7 +292,7 @@ namespace Durnit
             serializer.Converters.Add(new JavaScriptDateTimeConverter());
             serializer.NullValueHandling = NullValueHandling.Ignore;
 
-            instructions.Where(iim => iim.Instruction == InitInstructions.NAMENODE).First();
+            //instructions.Where(iim => iim.Instruction == InitInstructions.NAMENODE).First();
 
             foreach (var iim in instructions)
             {

@@ -1,9 +1,9 @@
 <config>
 	<identity>
-		<dataNode>
+		<nameNode>
 			<address>192.168.137.118</address>
 			<port>12345</port>
-		</dataNode>
+		</nameNode>
 	</identity>
 	
 	<dataNode>
@@ -11,10 +11,10 @@
 		<port>1010</port>
 	</dataNode> 
 	
-	<nameNode>
+	<!-- <dataNode>
 		<address>192.168.137.1</address>
 		<port>2020</port>
-	</nameNode>
+	</dataNode> -->
 	
 	<!-- <dataNode>
 		<address>192.168.137.5</address>
