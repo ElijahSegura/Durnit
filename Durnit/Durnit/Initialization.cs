@@ -133,6 +133,8 @@ namespace Durnit
         //TODO:
         public void InitializeSelf(InitInstructionModel init)
         {
+            init.NameNodeAddress = nni.Address;
+            init.NameNodePort = nni.Port;
             keepGoing = false;
             switch (init.Instruction)
             {
@@ -255,12 +257,17 @@ namespace Durnit
                 }
             }
 
+            foreach (var iim in instructions)
+            {
+                iim.NameNodeAddress = nni.Address;
+                iim.NameNodePort = nni.Port;
+            }
+
             var thread = new Thread(
                     () => InitializeSelf(myInstruction ?? new InitInstructionModel()));
             thread.IsBackground = false;
             thread.Start();
             //InitializeSelf(myInstruction ?? new InitInstructionModel());
-            Console.WriteLine("ALDHFLAF");
             SendInstructions();
 
             return nni;
@@ -296,14 +303,13 @@ namespace Durnit
                 using (StreamWriter sw = new StreamWriter(request.GetRequestStream()))
                 using (JsonWriter writer = new JsonTextWriter(sw))
                 {
-                    iim.NameNodeAddress = nni.Address;
-                    iim.NameNodePort = nni.Port;
+
                     serializer.Serialize(writer, iim);
 
                     // {"ExpiryDate":new Date(1230375600000),"Price":0}
                 }
                 Console.WriteLine("about to get response");
-                request.GetResponse();
+                request.GetResponse().Close();
                 Console.WriteLine("got response");
             }
         }

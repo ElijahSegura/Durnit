@@ -122,7 +122,7 @@ namespace Durnit
                 serializer.Serialize(JW, selfInfo);
             }
           
-            request.GetResponse();
+            request.GetResponse().Close();
         }
 
         /// <summary>

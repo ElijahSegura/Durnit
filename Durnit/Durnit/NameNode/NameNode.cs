@@ -33,6 +33,7 @@ namespace Durnit
             Console.WriteLine("NameNode : handling request");
             HttpListener listener = (HttpListener)ar.AsyncState;
             listener.BeginGetContext(new AsyncCallback(handleRequest), listener);
+            Console.WriteLine("Queued up another one: " + this.URI);
 
             HttpListenerContext context = listener.EndGetContext(ar);
             HttpListenerRequest request = context.Request;
